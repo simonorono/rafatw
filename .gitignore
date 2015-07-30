@@ -1,0 +1,13 @@
+#Java & Scala
+*.class
+*.log
+*.jar
+*.war
+*.ear
+
+#Gradle & IDEA
+.gradle
+build/
+*.iml
+.idea
+.nb-gradle

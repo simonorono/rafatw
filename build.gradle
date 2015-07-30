@@ -1,0 +1,32 @@
+
+apply plugin: 'application'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'scala'
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = "rafael.Exec"
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.7'
+    compile 'org.postgresql:postgresql:9.4-1201-jdbc41'
+    compile 'org.twitter4j:twitter4j-stream:4.0.4'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    testCompile 'junit:junit:4.12'
+}
+
+task execJar(type: Jar) {
+    baseName = project.name + '-all'
+    manifest {
+        attributes 'Main-Class': 'rafael.Exec'
+    }
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
+}
