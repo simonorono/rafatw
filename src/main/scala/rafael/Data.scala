@@ -5,6 +5,10 @@ import java.util.Properties
 
 import twitter4j.{Status, User}
 
+/**
+ * Class that handles all the access to the database
+ * @param conf The main configuration map
+ */
 class Data(conf: Map[String, String]) {
   Class.forName("org.postgresql.Driver")
 
@@ -54,6 +58,11 @@ class Data(conf: Map[String, String]) {
     "SELECT 1 FROM usr WHERE id = ?;"
   )
 
+  /**
+   * Returns whether an user exists
+   * @param id The id of the user
+   * @return true if the user exists, false otherwise
+   */
   def existsUser(id: Long): Boolean = {
     existsUsrStmt.setLong(1, id)
     val rs = existsUsrStmt.executeQuery()
@@ -63,12 +72,17 @@ class Data(conf: Map[String, String]) {
     false
   }
 
+  /**
+   * Insert a status update into the database, updating or inserting the user
+   * responsible for the status
+   * @param s The status to be inserted
+   */
   def saveStatus(s: Status): Unit = {
     upsertUsr(s.getUser)
 
     if (s.getGeoLocation != null) {
       insertStmt.setDouble(2, s.getGeoLocation.getLatitude)
-      insertStmt.setDouble(3, s.getGeoLocation.getLatitude)
+      insertStmt.setDouble(3, s.getGeoLocation.getLongitude)
     } else {
       insertStmt.setNull(2, Types.DOUBLE)
       insertStmt.setNull(3, Types.DOUBLE)
@@ -100,6 +114,10 @@ class Data(conf: Map[String, String]) {
     insertStmt.execute()
   }
 
+  /**
+   * Updates or insert a user in the database
+   * @param u The user to be updated/inserted
+   */
   def upsertUsr(u: User): Unit = {
     if (existsUser(u.getId)) {
 

@@ -1,3 +1,5 @@
+-- Written for PostgreSQL
+
 DROP TABLE IF EXISTS usr CASCADE;
 CREATE TABLE usr (
     id                BIGINT PRIMARY KEY,

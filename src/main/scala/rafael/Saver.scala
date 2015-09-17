@@ -2,6 +2,10 @@ package rafael
 
 import twitter4j._
 
+/**
+ * Class that handles the events in the Twitter Stream
+ * @param data An instance if Data used to save the information
+ */
 class Saver(data: Data) extends UserStreamListener {
   override def onFriendList(friendIds: Array[Long]): Unit = {}
   override def onUserListUnsubscription(subscriber: User, listOwner: User, list: UserList): Unit = {}
@@ -28,10 +32,21 @@ class Saver(data: Data) extends UserStreamListener {
   override def onStallWarning(warning: StallWarning): Unit = {}
   override def onDeletionNotice(statusDeletionNotice: StatusDeletionNotice): Unit = {}
   override def onScrubGeo(userId: Long, upToStatusId: Long): Unit = {}
+
+  /**
+   * Executes every time the stream receives a status update. Saves the status.
+   * @param status The status to be saved
+   */
   override def onStatus(status: Status): Unit = {
     data.saveStatus(status)
   }
   override def onTrackLimitationNotice(numberOfLimitedStatuses: Int): Unit = {}
+
+  /**
+   * Executes every time the stream throws an exception. Does not terminate the
+   * application.
+   * @param ex The exception thrown.
+   */
   override def onException(ex: Exception): Unit = {
     ex.printStackTrace()
   }

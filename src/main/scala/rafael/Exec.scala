@@ -1,12 +1,15 @@
 package rafael
 
-import twitter4j.auth.AccessToken
 import twitter4j._
+import twitter4j.auth.AccessToken
 
+/**
+ * Entry point for the application. Setups the required classes and starts
+ * streaming from twitter.
+ */
 object Exec {
   def main(args: Array[String]): Unit = {
-    val config = new Config("config.json")
-    val settings = config.read().getOrElse(Map())
+    val settings = readConfig("config.json").getOrElse(Map())
 
     val data = new Data(settings)
 
