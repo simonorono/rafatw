@@ -48,6 +48,6 @@ class Saver(data: Data) extends UserStreamListener {
    * @param ex The exception thrown.
    */
   override def onException(ex: Exception): Unit = {
-    ex.printStackTrace()
+    println(ex.getMessage)
   }
 }
