@@ -1,4 +1,20 @@
-package rafael
+/*
+ * Copyright 2016 Simón Oroño
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package sron.rafatw
 
 import java.sql.{DriverManager, Timestamp, Types}
 import java.util.Properties
@@ -6,9 +22,10 @@ import java.util.Properties
 import twitter4j.{Status, User}
 
 /**
- * Class that handles all the access to the database
- * @param conf The main configuration map
- */
+  * Class that handles all the access to the database
+  *
+  * @param conf The main configuration map
+  */
 class Data(conf: Map[String, String]) {
   Class.forName("org.postgresql.Driver")
 
@@ -59,10 +76,11 @@ class Data(conf: Map[String, String]) {
   )
 
   /**
-   * Returns whether an user exists
-   * @param id The id of the user
-   * @return true if the user exists, false otherwise
-   */
+    * Returns whether an user exists
+    *
+    * @param id The id of the user
+    * @return true if the user exists, false otherwise
+    */
   def existsUser(id: Long): Boolean = {
     existsUsrStmt.setLong(1, id)
     val rs = existsUsrStmt.executeQuery()
@@ -73,10 +91,11 @@ class Data(conf: Map[String, String]) {
   }
 
   /**
-   * Insert a status update into the database, updating or inserting the user
-   * responsible for the status
-   * @param s The status to be inserted
-   */
+    * Insert a status update into the database, updating or inserting the user
+    * responsible for the status
+    *
+    * @param s The status to be inserted
+    */
   def saveStatus(s: Status): Unit = {
     upsertUsr(s.getUser)
 
@@ -115,9 +134,10 @@ class Data(conf: Map[String, String]) {
   }
 
   /**
-   * Updates or insert a user in the database
-   * @param u The user to be updated/inserted
-   */
+    * Updates or insert a user in the database
+    *
+    * @param u The user to be updated/inserted
+    */
   def upsertUsr(u: User): Unit = {
     if (existsUser(u.getId)) {
 

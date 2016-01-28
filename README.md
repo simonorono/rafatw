@@ -1,4 +1,4 @@
-# rafael
+# rafatw
 
 Bot for both listening and storing a Twitter timeline
 

@@ -1,24 +1,11 @@
-<<<<<<< HEAD
-#Java & Scala
 *.class
 *.log
 *.jar
 *.war
 *.ear
 
-#Gradle & IDEA
 .gradle
 build/
 *.iml
 .idea
 .nb-gradle
-=======
-.gradle
-build/
-
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
->>>>>>> a3fb27fc835dd8c8713f69ff587200d102bf5b3e
